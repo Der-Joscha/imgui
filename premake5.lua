@@ -2,8 +2,8 @@ project "ImGui"
 	kind "StaticLib"
 	language "C++"
   
-  	targetdir ("Binary/" .. outputdir .. "/%{prj.name}")
-	objdir ("Object/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
   
 	files
 	{
@@ -22,19 +22,21 @@ project "ImGui"
 	filter "system:windows"
 		systemversion "latest"
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off"
 	
 	filter "system:linux"
 		pic "On"
 		systemversion "latest"
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off"
 	
 	filter "configurations:Debug"
-		runtime "Debug"
+		optimize "Off"
 		symbols "On"
-	
+		runtime "Debug"
+
 	filter "configurations:Release"
-		runtime "Release"
 		optimize "On"
+		symbols "Off"
+		runtime "Release"
 	
