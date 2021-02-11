@@ -1315,8 +1315,8 @@ enum ImGuiCond_
 struct ImNewDummy {};
 inline void* operator new(size_t, ImNewDummy, void* ptr) { return ptr; }
 inline void  operator delete(void*, ImNewDummy, void*)   {} // This is only required so we can use the symmetrical new()
-#define IM_ALLOC(_SIZE)                     ImGui::MemAlloc(_SIZE)
-#define IM_FREE(_PTR)                       ImGui::MemFree(_PTR)
+#define IM_ALLOC(_SIZE)                     malloc(_SIZE) // ImGui::MemAlloc(_SIZE)
+#define IM_FREE(_PTR)                       free(_PTR) //ImGui::MemFree(_PTR)
 #define IM_PLACEMENT_NEW(_PTR)              new(ImNewDummy(), _PTR)
 #define IM_NEW(_TYPE)                       new(ImNewDummy(), ImGui::MemAlloc(sizeof(_TYPE))) _TYPE
 template<typename T> void IM_DELETE(T* p)   { if (p) { p->~T(); ImGui::MemFree(p); } }
